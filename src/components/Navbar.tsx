@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import { FaFacebook, FaTwitter, FaCar } from "react-icons/fa";
 import Link from "next/link";
 import MobileNavbar from "./MobileNavbar";
-import { Menu } from "./ui/navbar-menu";
-import { BiArrowToBottom } from "react-icons/bi";
+
+
 
 export default function Navbar() {
   const [isMobile, setIsMobile] = useState<boolean>(false);
