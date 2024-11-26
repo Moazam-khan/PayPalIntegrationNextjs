@@ -1,16 +1,10 @@
+import React from 'react';
 
-import Imagesliderr from "../components/Imagesilderr";
-import Card3d from "../components/Card3d";
-
-const Home = () => {
+import Card from '../components/Card';
+export default function Page() {
   return (
-    <div className="">
-    <div> <Imagesliderr></Imagesliderr></div>
-    <div className=""><Card3d></Card3d></div>
-     
-   
+    <div>
+      <Card></Card>
     </div>
   );
-};
-
-export default Home;
+}
