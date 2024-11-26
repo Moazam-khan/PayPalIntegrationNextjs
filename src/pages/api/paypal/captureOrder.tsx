@@ -1,9 +1,7 @@
-// captureOrder.js (located in src/app/api)
 interface CaptureOrderResponse {
-  // Define the structure of the response data here
-  // For example:
-  // id: string;
-  // status: string;
+  id: string;
+  status: string;
+  // Add other properties as needed
 }
 
 export async function captureOrder(orderID: string): Promise<CaptureOrderResponse> {

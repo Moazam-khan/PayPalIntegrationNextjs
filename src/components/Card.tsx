@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
-import PayPalButton from './PayPalButton'; // Assuming PayPalButton handles the PayPal button rendering
+import PayPalButtonComponent from './PayPalButton'; // Assuming PayPalButton handles the PayPal button rendering
 import Image from 'next/image';
+
 const Card = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const amount = 40; // Fixed amount
@@ -14,8 +15,9 @@ const Card = () => {
     setIsModalOpen(false);
   };
 
-  const handleSuccess = (details: any) => {
-    console.log('Transaction completed by ' + details.payer.name.given_name);
+  const handleSuccess = (details: { payer?: { name?: { given_name?: string } } }) => {
+    const givenName = details.payer?.name?.given_name || 'Unknown';
+    console.log('Transaction completed by ' + givenName);
     handleCloseModal(); // Close modal after transaction
     window.open('/success', '_blank'); // Open the success route in a new tab
   };
@@ -31,7 +33,6 @@ const Card = () => {
         margin: '0',
       }}
     >
-      
       <div
         style={{
           backgroundColor: '#fff',
@@ -44,12 +45,12 @@ const Card = () => {
         }}
       >
         <Image
-        src="https://picsum.photos/300" // Replace with another valid image source
-        alt="Cricket Bat"
-        width={300}
-        height={300}
-        style={{ borderRadius: '10px' }}
-      />
+          src="https://picsum.photos/300" // Replace with another valid image source
+          alt="Cricket Bat"
+          width={300}
+          height={300}
+          style={{ borderRadius: '10px' }}
+        />
         <p style={{ marginBottom: '20px', color: '#555' }}>
           Purchase Item for ${amount}
         </p>
@@ -99,7 +100,7 @@ const Card = () => {
               }}
             >
               <h3 style={{ marginBottom: '20px' }}>Complete Your Purchase</h3>
-              <PayPalButton
+              <PayPalButtonComponent
                 amount={amount}
                 onSuccess={handleSuccess}
               />

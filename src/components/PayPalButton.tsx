@@ -3,7 +3,7 @@ import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
 interface PayPalButtonProps {
   amount: number;
-  onSuccess: (details: any) => void;
+  onSuccess: (details: { payer?: { name?: { given_name?: string } } }) => void;
 }
 
 const PayPalButton: React.FC<PayPalButtonProps> = ({ amount, onSuccess }) => {
@@ -25,7 +25,11 @@ const PayPalButton: React.FC<PayPalButtonProps> = ({ amount, onSuccess }) => {
         onApprove={(data, actions) => {
           if (actions.order) {
             return actions.order.capture().then(details => {
-              onSuccess(details);
+              if (details.payer && details.payer.name && details.payer.name.given_name) {
+                onSuccess(details);
+              } else {
+                console.error('Payer details are missing');
+              }
             });
           }
           return Promise.reject(new Error('Order is undefined'));
